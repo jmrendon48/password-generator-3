@@ -65,7 +65,6 @@ var characterTypes = function() {
 
 // generates password through prompts
 var generatePassword = function() {
-	debugger;
 	// prompt to set length of the password
 	passwordCriteria.length = window.prompt("Choose the length of the password (at least 8 characters and no more than 128).");
 	// changes string from passwordLength prompt to an integer
