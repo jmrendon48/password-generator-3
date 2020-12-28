@@ -2,13 +2,14 @@
 var generateBtn = document.querySelector("#generate");
 
 var passwordCriteria = {
+	length: "",
 	lowercase: "",
 	uppercase: "",
 	numeric: "",
 	specialCharacters: ""
 };
 
-var characters = function() {
+var characterTypes = function() {
 	// prompt to choose whether or not to include lowercase characters
 	passwordCriteria.lowercase = window.prompt("Do you want to include lowercase characters? Answer yes or no.");
 	passwordCriteria.lowercase = passwordCriteria.lowercase.toLowerCase();
@@ -58,7 +59,7 @@ var characters = function() {
 		passwordCriteria.numeric === false && 
 		passwordCriteria.specialCharacters === false) {
 		window.alert("You need to pick at least one character type.");
-		characters();
+		characterTypes();
 	}
 };
 
@@ -66,28 +67,47 @@ var characters = function() {
 var generatePassword = function() {
 	debugger;
 	// prompt to set length of the password
-	var passwordLength = window.prompt("Choose the length of the password (at least 8 characters and no more than 128).");
+	passwordCriteria.length = window.prompt("Choose the length of the password (at least 8 characters and no more than 128).");
 	// changes string from passwordLength prompt to an integer
-	passwordLength = parseInt(passwordLength);
+	passwordCriteria.length = parseInt(passwordCriteria.length);
 	// asks user to enter valid length
-	if (passwordLength < 8 || passwordLength > 128) {
+	if (passwordCriteria.length < 8 || passwordCriteria.length > 128) {
 		window.alert("You did not enter a valid length. Please try again.");
-		length();
+		generatePassword();
 	}
 	else {
-		window.alert("You have entered a length of " + passwordLength + ".");
+		window.alert("You have entered a length of " + passwordCriteria.length + ".");
 	}
 
 	window.alert("What character types do you want to use? Choose at least one.");
 
-	characters();
-
-	console.log(passwordCriteria.lowercase);
-	console.log(passwordCriteria.uppercase);
-	console.log(passwordCriteria.numeric);
-	console.log(passwordCriteria.specialCharacters);
+	characterTypes();
 
 	window.alert("Generating password.");
+
+	function makePassword() {
+		charset = "";
+		if (passwordCriteria.lowercase === true) {
+			charset = "abcdefghijklmnopqrstuvwxyz";
+		}
+		if (passwordCriteria.uppercase === true) {
+			charset = charset + "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+		}
+		if (passwordCriteria.numeric === true) {
+			charset = charset + "0123456789";
+		}
+		if (passwordCriteria.specialCharacters === true) {
+			charset = charset + "!#$%&'()*+,-./:;<=>?@[\]^_`{|}~";
+		}
+		var result = "";
+		var length = passwordCriteria.length;
+		for (var i = 0, n = charset.length; i < length; i++) {
+			result += charset.charAt(Math.floor(Math.random() * n));
+		}
+		window.alert("Your new password is " + result);
+	}
+	
+	makePassword();
 };
 
 // Write password to the #password input
