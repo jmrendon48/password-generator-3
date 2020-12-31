@@ -85,25 +85,26 @@ var generatePassword = function() {
 	window.alert("Generating password.");
 
 	function makePassword() {
-		charset = "";
+		var characters = "";
 		if (passwordCriteria.lowercase === true) {
-			charset = "abcdefghijklmnopqrstuvwxyz";
+			characters = "abcdefghijklmnopqrstuvwxyz";
 		}
 		if (passwordCriteria.uppercase === true) {
-			charset = charset + "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+			characters = characters + "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 		}
 		if (passwordCriteria.numeric === true) {
-			charset = charset + "0123456789";
+			characters = characters + "0123456789";
 		}
 		if (passwordCriteria.specialCharacters === true) {
-			charset = charset + "!#$%&'()*+,-./:;<=>?@[\]^_`{|}~";
+			characters = characters + "!#$%&'()*+,-./:;<=>?@[\]^_`{|}~";
 		}
 		var result = "";
 		var length = passwordCriteria.length;
-		for (var i = 0, n = charset.length; i < length; i++) {
-			result += charset.charAt(Math.floor(Math.random() * n));
+		for (var i = 0, n = characters.length; i < length; i++) {
+			result += characters.charAt(Math.floor(Math.random() * n));
 		}
 		window.alert("Your new password is " + result);
+		return result;
 	}
 	
 	makePassword();
